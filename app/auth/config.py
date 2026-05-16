@@ -35,6 +35,8 @@ SESSION_MAX_AGE: int = int(os.getenv("SESSION_MAX_AGE", "3600"))  # 기본 1시�
 # 쿠키 보안 설정
 # Ref: https://developer.mozilla.org/en-US/docs/Web/HTTP/Cookies#security
 COOKIE_HTTPONLY: bool = True
-COOKIE_SAMESITE: str = "lax"
+# Cross-site 운영(FE/BE 다른 origin)에서는 "none" + Secure=true 가 필수.
+# 브라우저는 SameSite=None 쿠키를 Secure 없이는 거부한다.
+COOKIE_SAMESITE: str = os.getenv("COOKIE_SAMESITE", "lax")
 # HTTPS 환경에서만 True로 설정 (개발 환경에서는 False)
 COOKIE_SECURE: bool = os.getenv("COOKIE_SECURE", "false").lower() == "true"
